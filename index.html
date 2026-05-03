@@ -1,1052 +1,1212 @@
-&lt;!DOCTYPE html&gt;
-&lt;html lang="hi"&gt;
-&lt;head&gt;
-&lt;meta charset="UTF-8"&gt;
-&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-&lt;title&gt;■■■■■■ AI — ■■■■ AI ■■■■■■&lt;/title&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=Noto+Sans+Devanagari:wght@300;400;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"&gt;
-&lt;style&gt;
- :root {
- --navy: #0A0F2C;
- --navy2: #151B3B;
- --navy3: #1E2756;
- --gold: #F5A623;
- --gold2: #FFD166;
- --white: #FFFFFF;
- --gray: #8892B0;
- --light: #CCD6F6;
- }
- * { margin: 0; padding: 0; box-sizing: border-box; }
- body {
- background: var(--navy);
- color: var(--white);
- font-family: 'Noto Sans Devanagari', sans-serif;
- min-height: 100vh;
- overflow-x: hidden;
- }
- /* BACKGROUND STARS */
- body::before {
- content: '';
- position: fixed;
- top: 0; left: 0;
- width: 100%; height: 100%;
- background-image:
- radial-gradient(1px 1px at 20% 30%, rgba(245,166,35,0.4) 0%, transparent 100%),
- radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.3) 0%, transparent 100%),
- radial-gradient(1px 1px at 50% 60%, rgba(245,166,35,0.2) 0%, transparent 100%),
- radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
- radial-gradient(1px 1px at 90% 70%, rgba(245,166,35,0.3) 0%, transparent 100%),
- radial-gradient(2px 2px at 35% 15%, rgba(255,255,255,0.15) 0%, transparent 100%),
- radial-gradient(2px 2px at 65% 85%, rgba(245,166,35,0.15) 0%, transparent 100%);
- pointer-events: none;
- z-index: 0;
- }
- /* NAVBAR */
- nav {
- position: fixed;
- top: 0; left: 0; right: 0;
- z-index: 100;
- display: flex;
- align-items: center;
- justify-content: space-between;
- padding: 16px 24px;
- background: rgba(10,15,44,0.92);
- backdrop-filter: blur(12px);
- border-bottom: 1px solid rgba(245,166,35,0.15);
- }
- .logo {
- font-family: 'Playfair Display', serif;
- font-size: 24px;
- font-weight: 900;
- color: var(--white);
- letter-spacing: 1px;
- }
- .logo span { color: var(--gold); }
- .nav-btn {
- background: var(--gold);
- color: var(--navy);
- border: none;
- padding: 8px 20px;
- border-radius: 50px;
- font-weight: 700;
- font-size: 13px;
- cursor: pointer;
- font-family: 'Noto Sans Devanagari', sans-serif;
- transition: all 0.2s;
- }
- .nav-btn:hover { background: var(--gold2); transform: scale(1.05); }
- /* PAGES */
- .page { display: none; min-height: 100vh; padding-top: 70px; position: relative; z-index: 1; }
- .page.active { display: block; }
- /* HOME PAGE */
- .hero {
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
- min-height: calc(100vh - 70px);
- text-align: center;
- padding: 40px 24px;
- }
- .hero-badge {
- background: rgba(245,166,35,0.1);
- border: 1px solid rgba(245,166,35,0.3);
- color: var(--gold);
- padding: 6px 16px;
- border-radius: 50px;
- font-size: 12px;
- letter-spacing: 2px;
- text-transform: uppercase;
- margin-bottom: 24px;
- animation: fadeInDown 0.8s ease;
- }
- .hero h1 {
- font-family: 'Playfair Display', serif;
- font-size: clamp(36px, 8vw, 72px);
- font-weight: 900;
- line-height: 1.1;
- margin-bottom: 16px;
- animation: fadeInUp 0.8s ease 0.2s both;
- }
- .hero h1 .gold { color: var(--gold); }
- .hero p {
- color: var(--gray);
- font-size: 15px;
- max-width: 360px;
- line-height: 1.7;
- margin-bottom: 36px;
- animation: fadeInUp 0.8s ease 0.4s both;
- }
- .hero-btns {
- display: flex;
- gap: 12px;
- flex-wrap: wrap;
- justify-content: center;
- animation: fadeInUp 0.8s ease 0.6s both;
- }
- .btn-primary {
- background: linear-gradient(135deg, var(--gold), var(--gold2));
- color: var(--navy);
- border: none;
- padding: 14px 28px;
- border-radius: 50px;
- font-weight: 700;
- font-size: 15px;
- cursor: pointer;
- font-family: 'Noto Sans Devanagari', sans-serif;
- transition: all 0.3s;
- box-shadow: 0 8px 30px rgba(245,166,35,0.3);
- }
- .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(245,166,35,0.4); }
- .btn-secondary {
- background: transparent;
- color: var(--white);
- border: 1px solid rgba(255,255,255,0.2);
- padding: 14px 28px;
- border-radius: 50px;
- font-weight: 600;
- font-size: 15px;
- cursor: pointer;
- font-family: 'Noto Sans Devanagari', sans-serif;
- transition: all 0.3s;
- }
- .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
- /* FEATURES */
- .features {
- padding: 60px 24px;
- max-width: 480px;
- margin: 0 auto;
- }
- .section-title {
- font-family: 'Playfair Display', serif;
- font-size: 28px;
- font-weight: 700;
- text-align: center;
- margin-bottom: 32px;
- }
- .section-title span { color: var(--gold); }
- .feature-grid {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap: 16px;
- }
- .feature-card {
- background: var(--navy2);
- border: 1px solid rgba(245,166,35,0.1);
- border-radius: 16px;
- padding: 20px 16px;
- transition: all 0.3s;
- }
- .feature-card:hover {
- border-color: rgba(245,166,35,0.3);
- transform: translateY(-4px);
- }
- .feature-icon { font-size: 28px; margin-bottom: 10px; }
- .feature-card h3 {
- font-size: 13px;
- font-weight: 700;
- margin-bottom: 6px;
- color: var(--white);
- }
- .feature-card p { font-size: 11px; color: var(--gray); line-height: 1.5; }
- /* CHAT PAGE */
- .chat-container {
- display: flex;
- flex-direction: column;
- height: calc(100vh - 70px);
- max-width: 600px;
- margin: 0 auto;
- }
- .chat-header {
- padding: 16px 20px;
- border-bottom: 1px solid rgba(245,166,35,0.1);
- background: var(--navy2);
- }
- .chat-header h2 {
- font-family: 'Playfair Display', serif;
- font-size: 18px;
- color: var(--gold);
- margin-bottom: 8px;
- }
- .subject-pills {
- display: flex;
- gap: 8px;
- flex-wrap: wrap;
- }
- .pill {
- background: rgba(245,166,35,0.1);
- border: 1px solid rgba(245,166,35,0.2);
- color: var(--gold);
- padding: 4px 12px;
- border-radius: 50px;
- font-size: 11px;
- cursor: pointer;
- transition: all 0.2s;
- }
- .pill.active, .pill:hover {
- background: var(--gold);
- color: var(--navy);
- border-color: var(--gold);
- }
- .chat-messages {
- flex: 1;
- overflow-y: auto;
- padding: 20px;
- display: flex;
- flex-direction: column;
- gap: 16px;
- }
- .chat-messages::-webkit-scrollbar { width: 4px; }
- .chat-messages::-webkit-scrollbar-track { background: transparent; }
- .chat-messages::-webkit-scrollbar-thumb { background: rgba(245,166,35,0.3); border-radius: 2px; }
- .message {
- display: flex;
- gap: 10px;
- animation: fadeInUp 0.3s ease;
- }
- .message.user { flex-direction: row-reverse; }
- .msg-avatar {
- width: 34px;
- height: 34px;
- border-radius: 50%;
- display: flex;
- align-items: center;
- justify-content: center;
- font-size: 16px;
- flex-shrink: 0;
- }
- .msg-avatar.ai { background: linear-gradient(135deg, var(--gold), var(--gold2)); }
- .msg-avatar.user-av { background: var(--navy3); border: 1px solid rgba(245,166,35,0.3); }
- .msg-bubble {
- max-width: 80%;
- padding: 12px 16px;
- border-radius: 16px;
- font-size: 14px;
- line-height: 1.6;
- }
- .message.ai .msg-bubble {
- background: var(--navy2);
- border: 1px solid rgba(245,166,35,0.1);
- border-top-left-radius: 4px;
- color: var(--light);
- }
- .message.user .msg-bubble {
- background: linear-gradient(135deg, var(--gold), var(--gold2));
- color: var(--navy);
- font-weight: 600;
- border-top-right-radius: 4px;
- }
- .typing-indicator {
- display: flex;
- gap: 4px;
- align-items: center;
- padding: 12px 16px;
- }
- .typing-dot {
- width: 6px;
- height: 6px;
- background: var(--gold);
- border-radius: 50%;
- animation: typing 1.2s infinite;
- }
- .typing-dot:nth-child(2) { animation-delay: 0.2s; }
- .typing-dot:nth-child(3) { animation-delay: 0.4s; }
- @keyframes typing {
- 0%, 100% { opacity: 0.3; transform: scale(1); }
- 50% { opacity: 1; transform: scale(1.3); }
- }
- .chat-input-area {
- padding: 16px 20px;
- border-top: 1px solid rgba(245,166,35,0.1);
- background: var(--navy2);
- }
- .lang-select {
- background: var(--navy3);
- border: 1px solid rgba(245,166,35,0.2);
- color: var(--gold);
- padding: 6px 12px;
- border-radius: 8px;
- font-size: 12px;
- margin-bottom: 10px;
- font-family: 'Noto Sans Devanagari', sans-serif;
- width: 100%;
- }
- .input-row {
- display: flex;
- gap: 10px;
- align-items: flex-end;
- }
- .chat-input {
- flex: 1;
- background: var(--navy3);
- border: 1px solid rgba(245,166,35,0.2);
- color: var(--white);
- padding: 12px 16px;
- border-radius: 12px;
- font-size: 14px;
- font-family: 'Noto Sans Devanagari', sans-serif;
- resize: none;
- min-height: 46px;
- max-height: 120px;
- outline: none;
- transition: border-color 0.2s;
- }
- .chat-input:focus { border-color: var(--gold); }
- .chat-input::placeholder { color: var(--gray); }
- .send-btn {
- width: 46px;
- height: 46px;
- background: linear-gradient(135deg, var(--gold), var(--gold2));
- border: none;
- border-radius: 12px;
- cursor: pointer;
- font-size: 18px;
- display: flex;
- align-items: center;
- justify-content: center;
- transition: all 0.2s;
- flex-shrink: 0;
- }
- .send-btn:hover { transform: scale(1.05); }
- .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
- /* CREDITS PAGE */
- .credits-page {
- padding: 30px 24px;
- max-width: 480px;
- margin: 0 auto;
- }
- .credits-header {
- text-align: center;
- margin-bottom: 30px;
- }
- .credits-header h2 {
- font-family: 'Playfair Display', serif;
- font-size: 26px;
- margin-bottom: 8px;
- }
- .credit-balance {
- background: linear-gradient(135deg, var(--navy2), var(--navy3));
- border: 1px solid rgba(245,166,35,0.3);
- border-radius: 20px;
- padding: 24px;
- text-align: center;
- margin-bottom: 24px;
- }
- .credit-number {
- font-family: 'Space Mono', monospace;
- font-size: 48px;
- font-weight: 700;
- color: var(--gold);
- line-height: 1;
- }
- .credit-label { color: var(--gray); font-size: 13px; margin-top: 4px; }
- .survey-card {
- background: var(--navy2);
- border: 1px solid rgba(245,166,35,0.15);
- border-radius: 16px;
- padding: 20px;
- margin-bottom: 16px;
- }
- .survey-card h3 {
- font-size: 15px;
- font-weight: 700;
- margin-bottom: 8px;
- display: flex;
- align-items: center;
- gap: 8px;
- }
- .survey-card p { color: var(--gray); font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
- .survey-reward {
- background: rgba(245,166,35,0.1);
- color: var(--gold);
- padding: 4px 12px;
- border-radius: 50px;
- font-size: 12px;
- font-weight: 700;
- display: inline-block;
- margin-bottom: 12px;
- }
- .survey-questions { display: none; }
- .survey-questions.open { display: block; }
- .survey-q {
- margin-bottom: 14px;
- }
- .survey-q p { color: var(--light); font-size: 13px; margin-bottom: 8px; }
- .survey-options {
- display: flex;
- flex-direction: column;
- gap: 6px;
- }
- .survey-option {
- background: var(--navy3);
- border: 1px solid rgba(245,166,35,0.1);
- color: var(--white);
- padding: 8px 14px;
- border-radius: 8px;
- font-size: 13px;
- cursor: pointer;
- text-align: left;
- font-family: 'Noto Sans Devanagari', sans-serif;
- transition: all 0.2s;
- }
- .survey-option:hover, .survey-option.selected {
- background: rgba(245,166,35,0.15);
- border-color: var(--gold);
- color: var(--gold);
- }
- .submit-survey {
- width: 100%;
- background: linear-gradient(135deg, var(--gold), var(--gold2));
- color: var(--navy);
- border: none;
- padding: 12px;
- border-radius: 10px;
- font-weight: 700;
- font-size: 14px;
- cursor: pointer;
- font-family: 'Noto Sans Devanagari', sans-serif;
- margin-top: 12px;
- transition: all 0.2s;
- }
- .submit-survey:hover { transform: scale(1.02); }
- /* BOTTOM NAV */
- .bottom-nav {
- position: fixed;
- bottom: 0; left: 0; right: 0;
- z-index: 100;
- background: rgba(10,15,44,0.95);
- backdrop-filter: blur(12px);
- border-top: 1px solid rgba(245,166,35,0.15);
- display: flex;
- justify-content: space-around;
- padding: 10px 0 14px;
- }
- .nav-item {
- display: flex;
- flex-direction: column;
- align-items: center;
- gap: 4px;
- cursor: pointer;
- transition: all 0.2s;
- padding: 4px 16px;
- }
- .nav-item .nav-icon { font-size: 22px; }
- .nav-item .nav-label { font-size: 10px; color: var(--gray); }
- .nav-item.active .nav-label { color: var(--gold); }
- .nav-item.active .nav-icon { filter: drop-shadow(0 0 4px rgba(245,166,35,0.6)); }
- /* API KEY SETUP */
- .setup-overlay {
- position: fixed;
- inset: 0;
- background: rgba(10,15,44,0.97);
- z-index: 200;
- display: flex;
- align-items: center;
- justify-content: center;
- padding: 24px;
- }
- .setup-box {
- background: var(--navy2);
- border: 1px solid rgba(245,166,35,0.3);
- border-radius: 20px;
- padding: 30px 24px;
- max-width: 380px;
- width: 100%;
- text-align: center;
- }
- .setup-box h2 {
- font-family: 'Playfair Display', serif;
- font-size: 24px;
- margin-bottom: 8px;
- color: var(--gold);
- }
- .setup-box p { color: var(--gray); font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
- .setup-input {
- width: 100%;
- background: var(--navy3);
- border: 1px solid rgba(245,166,35,0.2);
- color: var(--white);
- padding: 12px 16px;
- border-radius: 10px;
- font-size: 13px;
- font-family: monospace;
- outline: none;
- margin-bottom: 16px;
- transition: border-color 0.2s;
- }
- .setup-input:focus { border-color: var(--gold); }
- /* ANIMATIONS */
- @keyframes fadeInUp {
- from { opacity: 0; transform: translateY(20px); }
- to { opacity: 1; transform: translateY(0); }
- }
- @keyframes fadeInDown {
- from { opacity: 0; transform: translateY(-20px); }
- to { opacity: 1; transform: translateY(0); }
- }
- /* PADDING FOR BOTTOM NAV */
- .page { padding-bottom: 70px; }
- /* WELCOME MESSAGE */
- .welcome-msg {
- text-align: center;
- padding: 40px 20px;
- color: var(--gray);
- }
- .welcome-msg .big-emoji { font-size: 48px; margin-bottom: 12px; }
- .welcome-msg h3 { color: var(--white); font-size: 16px; margin-bottom: 8px; }
- .welcome-msg p { font-size: 13px; line-height: 1.6; }
- .quick-questions {
- display: flex;
- flex-direction: column;
- gap: 8px;
- margin-top: 16px;
- }
- .quick-q {
- background: var(--navy2);
- border: 1px solid rgba(245,166,35,0.15);
- color: var(--light);
- padding: 10px 16px;
- border-radius: 10px;
- font-size: 13px;
- cursor: pointer;
- text-align: left;
- font-family: 'Noto Sans Devanagari', sans-serif;
- transition: all 0.2s;
- }
- .quick-q:hover { border-color: var(--gold); color: var(--gold); }
- /* VOICE BTN */
- .voice-btn {
- width: 46px;
- height: 46px;
- background: var(--navy3);
- border: 1px solid rgba(245,166,35,0.2);
- border-radius: 12px;
- cursor: pointer;
- font-size: 18px;
- display: flex;
- align-items: center;
- justify-content: center;
- transition: all 0.2s;
- flex-shrink: 0;
- }
- .voice-btn:hover { border-color: var(--gold); }
- .voice-btn.listening { border-color: #ff4444; background: rgba(255,68,68,0.1); animation: pulse 1s infinite; }
- @keyframes pulse {
- 0%, 100% { box-shadow: 0 0 0 0 rgba(255,68,68,0.4); }
- 50% { box-shadow: 0 0 0 8px rgba(255,68,68,0); }
- }
- .msg-time {
- font-size: 10px;
- color: var(--gray);
- margin-top: 4px;
- font-family: 'Space Mono', monospace;
- }
- .message.user .msg-time { text-align: right; }
- /* SUCCESS TOAST */
- .toast {
- position: fixed;
- top: 80px;
- left: 50%;
- transform: translateX(-50%);
- background: var(--gold);
- color: var(--navy);
- padding: 10px 24px;
- border-radius: 50px;
- font-weight: 700;
- font-size: 13px;
- z-index: 300;
- opacity: 0;
- transition: opacity 0.3s;
- white-space: nowrap;
- }
- .toast.show { opacity: 1; }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;!-- TOAST --&gt;
-&lt;div class="toast" id="toast"&gt;&lt;/div&gt;
-&lt;!-- API KEY SETUP --&gt;
-&lt;div class="setup-overlay" id="setupOverlay"&gt;
- &lt;div class="setup-box"&gt;
- &lt;div style="font-size:48px;margin-bottom:12px"&gt;■&lt;/div&gt;
- &lt;h2&gt;■■■■■■ AI&lt;/h2&gt;
- &lt;p&gt;■■■■ ■■■■ ■■ ■■■ ■■■■ &lt;strong style="color:var(--gold)"&gt;Gemini API Key&lt;/strong&gt; ■■■■■■&lt;br&gt;■■ ■■■■■ ■■■■ device ■■ save ■■■■■&lt;/p&gt;
- &lt;input type="password" class="setup-input" id="apiKeyInput" placeholder="AIza... (■■■■ API key paste ■■■■)"&gt;
- &lt;p style="font-size:11px;color:var(--gray);margin-bottom:16px"&gt;
- ■ Key ■■■■: &lt;strong style="color:var(--gold)"&gt;aistudio.google.com&lt;/strong&gt; → Get API Key
- &lt;/p&gt;
- &lt;button class="btn-primary" onclick="saveApiKey()" style="width:100%"&gt;■■■■ ■■■■ →&lt;/button&gt;
- &lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- NAVBAR --&gt;
-&lt;nav&gt;
- &lt;div class="logo"&gt;■■■■■■&lt;span&gt;AI&lt;/span&gt;&lt;/div&gt;
- &lt;div style="display:flex;align-items:center;gap:10px"&gt;
- &lt;span style="font-size:12px;color:var(--gold);font-family:'Space Mono',monospace" id="creditDisplay"&gt;■ 0 credits&lt;/span&gt;
- &lt;button class="nav-btn" onclick="showPage('credits')"&gt;Credits&lt;/button&gt;
- &lt;/div&gt;
-&lt;/nav&gt;
-&lt;!-- HOME PAGE --&gt;
-&lt;div class="page active" id="page-home"&gt;
- &lt;div class="hero"&gt;
- &lt;div class="hero-badge"&gt;■■ India ■■ AI Teacher&lt;/div&gt;
- &lt;h1&gt;■■■■ &lt;span class="gold"&gt;■■■■■■■&lt;/span&gt;&lt;br&gt;■■■■■■ ■■■■ ■■&lt;/h1&gt;
- &lt;p&gt;JEE, NEET, UPSC, Board exams — ■■■■ ■■ subject ■■■, ■■■■ ■■ ■■■■ ■■■, step-by-step ■■■■■■■&lt;/p&gt;
- &lt;div class="hero-btns"&gt;
- &lt;button class="btn-primary" onclick="showPage('chat')"&gt;■■■■■ ■■■■ ■■■■ →&lt;/button&gt;
- &lt;button class="btn-secondary" onclick="showPage('credits')"&gt;Credits ■■■■ ■&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;div class="features"&gt;
- &lt;div class="section-title"&gt;■■■■■ &lt;span&gt;■■■■■■ AI&lt;/span&gt;?&lt;/div&gt;
- &lt;div class="feature-grid"&gt;
- &lt;div class="feature-card"&gt;
- &lt;div class="feature-icon"&gt;■■&lt;/div&gt;
- &lt;h3&gt;■■ ■■■■&lt;/h3&gt;
- &lt;p&gt;Hindi, English, Punjabi, Sanskrit — ■■■■ ■■■ ■■ ■■■■■&lt;/p&gt;
- &lt;/div&gt;
- &lt;div class="feature-card"&gt;
- &lt;div class="feature-icon"&gt;■&lt;/div&gt;
- &lt;h3&gt;■■ Exam&lt;/h3&gt;
- &lt;p&gt;JEE, NEET, UPSC, CBSE, UP Board ■■ cover&lt;/p&gt;
- &lt;/div&gt;
- &lt;div class="feature-card"&gt;
- &lt;div class="feature-icon"&gt;■&lt;/div&gt;
- &lt;h3&gt;Step-by-Step&lt;/h3&gt;
- &lt;p&gt;■■ ■■ ■■■ ■ ■■, ■■ ■■ ■■■■■■&lt;/p&gt;
- &lt;/div&gt;
- &lt;div class="feature-card"&gt;
- &lt;div class="feature-icon"&gt;■&lt;/div&gt;
- &lt;h3&gt;Voice Support&lt;/h3&gt;
- &lt;p&gt;■■■■■ ■■■■ ■■■■■, ■■■■ ■■■■■&lt;/p&gt;
- &lt;/div&gt;
- &lt;div class="feature-card"&gt;
- &lt;div class="feature-icon"&gt;■&lt;/div&gt;
- &lt;h3&gt;Previous Year&lt;/h3&gt;
- &lt;p&gt;PYQ analyze ■■■■, predict ■■■■&lt;/p&gt;
- &lt;/div&gt;
- &lt;div class="feature-card"&gt;
- &lt;div class="feature-icon"&gt;■&lt;/div&gt;
- &lt;h3&gt;Free Credits&lt;/h3&gt;
- &lt;p&gt;Survey ■■ credits ■■■■, ■■■■■ ■■■■&lt;/p&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- CHAT PAGE --&gt;
-&lt;div class="page" id="page-chat"&gt;
- &lt;div class="chat-container"&gt;
- &lt;div class="chat-header"&gt;
- &lt;h2&gt;■ ■■■■■■ ■■ ■■■■■&lt;/h2&gt;
- &lt;div class="subject-pills" id="subjectPills"&gt;
- &lt;span class="pill active" onclick="selectSubject(this,'General')"&gt;General&lt;/span&gt;
- &lt;span class="pill" onclick="selectSubject(this,'Maths')"&gt;Maths&lt;/span&gt;
- &lt;span class="pill" onclick="selectSubject(this,'Science')"&gt;Science&lt;/span&gt;
- &lt;span class="pill" onclick="selectSubject(this,'JEE')"&gt;JEE&lt;/span&gt;
- &lt;span class="pill" onclick="selectSubject(this,'NEET')"&gt;NEET&lt;/span&gt;
- &lt;span class="pill" onclick="selectSubject(this,'UPSC')"&gt;UPSC&lt;/span&gt;
- &lt;span class="pill" onclick="selectSubject(this,'History')"&gt;History&lt;/span&gt;
- &lt;span class="pill" onclick="selectSubject(this,'English')"&gt;English&lt;/span&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;div class="chat-messages" id="chatMessages"&gt;
- &lt;div class="welcome-msg"&gt;
- &lt;div class="big-emoji"&gt;■&lt;/div&gt;
- &lt;h3&gt;■■■■■■! ■■■ ■■■■■■ ■■■&lt;/h3&gt;
- &lt;p&gt;■■■■ AI ■■■■■■■ ■■■ ■■ ■■■■ ■■■■■ — ■■■ step-by-step ■■■■■■■■■&lt;/p&gt;
- &lt;div class="quick-questions"&gt;
- &lt;button class="quick-q" onclick="sendQuickQ(this)"&gt;■ Pythagoras theorem ■■■■ ■■?&lt;/button&gt;
- &lt;button class="quick-q" onclick="sendQuickQ(this)"&gt;■■ Photosynthesis ■■■■ ■■■■ ■■?&lt;/button&gt;
- &lt;button class="quick-q" onclick="sendQuickQ(this)"&gt;■■ ■■■■ ■■ ■■■■■■■ ■■ ■■■?&lt;/button&gt;
- &lt;button class="quick-q" onclick="sendQuickQ(this)"&gt;■ Quadratic equation solve ■■■: x²-5x+6=0&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;div class="chat-input-area"&gt;
- &lt;select class="lang-select" id="langSelect"&gt;
- &lt;option value="Hindi"&gt;■■ ■■■■■ ■■■ ■■■■ ■■■&lt;/option&gt;
- &lt;option value="English"&gt;■■ English ■■■ ■■■■ ■■■&lt;/option&gt;
- &lt;option value="Hinglish"&gt;■ Hinglish ■■■ ■■■■ ■■■&lt;/option&gt;
- &lt;option value="Punjabi"&gt;■ ■■■■■■ ■■■■ ■■■■ ■■■&lt;/option&gt;
- &lt;option value="Sanskrit"&gt;■■ ■■■■■■■■ ■■■■■■■ ■■■■■&lt;/option&gt;
- &lt;/select&gt;
- &lt;div class="input-row"&gt;
- &lt;button class="voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice input"&gt;■&lt;/button&gt;
- &lt;textarea class="chat-input" id="chatInput" placeholder="■■■■ ■■■■ ■■■■■..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"&gt;&lt;/textarea&gt;
- &lt;button class="send-btn" id="sendBtn" onclick="sendMessage()"&gt;➤&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- CREDITS PAGE --&gt;
-&lt;div class="page" id="page-credits"&gt;
- &lt;div class="credits-page"&gt;
- &lt;div class="credits-header"&gt;
- &lt;h2&gt;■ Credits&lt;/h2&gt;
- &lt;p style="color:var(--gray);font-size:13px"&gt;Survey ■■■, credits ■■■, ■■■■■ ■■■!&lt;/p&gt;
- &lt;/div&gt;
- &lt;div class="credit-balance"&gt;
- &lt;div class="credit-number" id="creditCount"&gt;0&lt;/div&gt;
- &lt;div class="credit-label"&gt;■■■■ Credits&lt;/div&gt;
- &lt;/div&gt;
- &lt;!-- SURVEY 1 --&gt;
- &lt;div class="survey-card"&gt;
- &lt;h3&gt;■ Survey 1 — ■■■■ ■■■■■ ■■ ■■■■ ■■■&lt;/h3&gt;
- &lt;div class="survey-reward"&gt;+50 Credits&lt;/div&gt;
- &lt;p&gt;5 minute ■■ survey — ■■■■ ■■■■■ ■■ ■■■■■ ■■ ■■■■ ■■■ ■■■■■■&lt;/p&gt;
- &lt;button class="btn-primary" onclick="openSurvey('survey1')" style="width:100%;margin-bottom:12px" id="surveyBtn1"&gt;Survey ■■■■ ■■■■&lt;/button&gt;
- &lt;div class="survey-questions" id="survey1"&gt;
- &lt;div class="survey-q"&gt;
- &lt;p&gt;1. ■■ ■■■■ ■■■■■ ■■■■ ■■■■■ ■■■?&lt;/p&gt;
- &lt;div class="survey-options"&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;1-2 ■■■■&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;3-4 ■■■■&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;5-6 ■■■■&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;6+ ■■■■&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;div class="survey-q"&gt;
- &lt;p&gt;2. ■■ ■■■ ■■ exam ■■ ■■■■■■ ■■ ■■■ ■■■?&lt;/p&gt;
- &lt;div class="survey-options"&gt
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;JEE/NEET&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;UPSC/BPSC&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;Board Exam&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;■■■ ■■■■&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;div class="survey-q"&gt;
- &lt;p&gt;3. AI ■■ ■■■■■ ■■■■ ■■■■ ■■■■ ■■?&lt;/p&gt;
- &lt;div class="survey-options"&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;■■■■ ■■■■■&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;■■■ ■■&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;■■■ ■■■■ ■■■&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;■■■■ ■■■ try ■■ ■■■ ■■■&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;button class="submit-survey" onclick="submitSurvey('survey1', 50, 'surveyBtn1')"&gt;■ Submit ■■■■ (+50 Credits)&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;!-- SURVEY 2 --&gt;
- &lt;div class="survey-card"&gt;
- &lt;h3&gt;■ Survey 2 — Subject Preference&lt;/h3&gt;
- &lt;div class="survey-reward"&gt;+30 Credits&lt;/div&gt;
- &lt;p&gt;■■■■ ■■■■■■■ ■■ ■■■■■■■ subjects ■■ ■■■■ ■■■■&lt;/p&gt;
- &lt;button class="btn-primary" onclick="openSurvey('survey2')" style="width:100%;margin-bottom:12px" id="surveyBtn2"&gt;Survey ■■■■ ■■■■&lt;/button&gt;
- &lt;div class="survey-questions" id="survey2"&gt;
- &lt;div class="survey-q"&gt;
- &lt;p&gt;1. ■■■■ ■■■■ ■■■■■■■ subject?&lt;/p&gt;
- &lt;div class="survey-options"&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;Mathematics&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;Science&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;History/GK&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;English&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;div class="survey-q"&gt;
- &lt;p&gt;2. ■■■■ ■■■■■■■ subject?&lt;/p&gt;
- &lt;div class="survey-options"&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;Mathematics&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;Chemistry&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;Physics&lt;/button&gt;
- &lt;button class="survey-option" onclick="selectOption(this)"&gt;English Grammar&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;button class="submit-survey" onclick="submitSurvey('survey2', 30, 'surveyBtn2')"&gt;■ Submit ■■■■ (+30 Credits)&lt;/button&gt;
- &lt;/div&gt;
- &lt;/div&gt;
- &lt;p style="text-align:center;color:var(--gray);font-size:12px;margin-top:8px"&gt;■■ surveys ■■■■ ■■■■■! ■&lt;/p&gt;
- &lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- BOTTOM NAV --&gt;
-&lt;div class="bottom-nav"&gt;
- &lt;div class="nav-item active" id="nav-home" onclick="showPage('home')"&gt;
- &lt;span class="nav-icon"&gt;■&lt;/span&gt;
- &lt;span class="nav-label"&gt;Home&lt;/span&gt;
- &lt;/div&gt;
- &lt;div class="nav-item" id="nav-chat" onclick="showPage('chat')"&gt;
- &lt;span class="nav-icon"&gt;■&lt;/span&gt;
- &lt;span class="nav-label"&gt;Chat&lt;/span&gt;
- &lt;/div&gt;
- &lt;div class="nav-item" id="nav-credits" onclick="showPage('credits')"&gt;
- &lt;span class="nav-icon"&gt;■&lt;/span&gt;
- &lt;span class="nav-label"&gt;Credits&lt;/span&gt;
- &lt;/div&gt;
-&lt;/div&gt;
-&lt;script&gt;
- // STATE
- let apiKey = localStorage.getItem('vidya_api_key') || '';
- let credits = parseInt(localStorage.getItem('vidya_credits') || '0');
- let selectedSubject = 'General';
- let chatHistory = [];
- let isLoading = false;
- let recognition = null;
- // INIT
- updateCreditDisplay();
- if (apiKey) document.getElementById('setupOverlay').style.display = 'none';
- function saveApiKey() {
- const key = document.getElementById('apiKeyInput').value.trim();
- if (!key || !key.startsWith('AIza')) {
- showToast('■ Valid API Key ■■■■■ (AIza... ■■ ■■■■ ■■■■ ■■■■■)');
- return;
- }
- apiKey = key;
- localStorage.setItem('vidya_api_key', key);
- document.getElementById('setupOverlay').style.display = 'none';
- showToast('■ ■■■■■■ AI ■■■■■ ■■!');
- }
- function showPage(page) {
- document.querySelectorAll('.page').forEach(p =&gt; p.classList.remove('active'));
- document.querySelectorAll('.nav-item').forEach(n =&gt; n.classList.remove('active'));
- document.getElementById('page-' + page).classList.add('active');
- document.getElementById('nav-' + page).classList.add('active');
- }
- function updateCreditDisplay() {
- document.getElementById('creditDisplay').textContent = '■ ' + credits + ' credits';
- document.getElementById('creditCount').textContent = credits;
- }
- function selectSubject(el, subject) {
- document.querySelectorAll('.pill').forEach(p =&gt; p.classList.remove('active'));
- el.classList.add('active');
- selectedSubject = subject;
- }
- function showToast(msg) {
- const t = document.getElementById('toast');
- t.textContent = msg;
- t.classList.add('show');
- setTimeout(() =&gt; t.classList.remove('show'), 3000);
- }
- function getTime() {
- return new Date().toLocaleTimeString('hi-IN', {hour:'2-digit', minute:'2-digit'});
- }
- function addMessage(role, text) {
- const container = document.getElementById('chatMessages');
- const welcomeMsg = container.querySelector('.welcome-msg');
- if (welcomeMsg) welcomeMsg.remove();
- const div = document.createElement('div');
- div.className = 'message ' + role;
- const avatar = document.createElement('div');
- avatar.className = 'msg-avatar ' + (role === 'ai' ? 'ai' : 'user-av');
- avatar.textContent = role === 'ai' ? '■' : '■';
- const bubble = document.createElement('div');
- bubble.className = 'msg-bubble';
- bubble.innerHTML = text.replace(/\n/g, '&lt;br&gt;').replace(/\*\*(.*?)\*\*/g, '&lt;strong&gt;$1&lt;/strong&gt;');
- const time = document.createElement('div');
- time.className = 'msg-time';
- time.textContent = getTime();
- const wrapper = document.createElement('div');
- wrapper.appendChild(bubble);
- wrapper.appendChild(time);
- div.appendChild(avatar);
- div.appendChild(wrapper);
- container.appendChild(div);
- container.scrollTop = container.scrollHeight;
- }
- function showTyping() {
- const container = document.getElementById('chatMessages');
- const div = document.createElement('div');
- div.className = 'message ai';
- div.id = 'typingIndicator';
- const avatar = document.createElement('div');
- avatar.className = 'msg-avatar ai';
- avatar.textContent = '■';
- const bubble = document.createElement('div');
- bubble.className = 'msg-bubble';
- bubble.innerHTML = '&lt;div class="typing-indicator"&gt;&lt;div class="typing-dot"&gt;&lt;/div&gt;&lt;div class="typing-dot"&gt;&lt;/div&gt;&lt;div class="typing-dot"&gt;&lt;/div&gt;&lt;/div&gt;';
- div.appendChild(avatar);
- div.appendChild(bubble);
- container.appendChild(div);
- container.scrollTop = container.scrollHeight;
- }
- function removeTyping() {
- const t = document.getElementById('typingIndicator');
- if (t) t.remove();
- }
- async function sendMessage() {
- const input = document.getElementById('chatInput');
- const text = input.value.trim();
- if (!text || isLoading) return;
- if (!apiKey) {
- document.getElementById('setupOverlay').style.display = 'flex';
- return;
- }
- input.value = '';
- input.style.height = 'auto';
- addMessage('user', text);
- isLoading = true;
- document.getElementById('sendBtn').disabled = true;
- showTyping();
- const lang = document.getElementById('langSelect').value;
- chatHistory.push({ role: 'user', content: text });
- const systemPrompt = `■■■ ■■■■■■ ■■ — ■■ expert Indian teacher AI■ ■■■ ${lang} ■■■ ■■■■ ■■■■ ■■■
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>विद्या AI — आपका AI शिक्षक</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Noto+Sans+Devanagari:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A0F2C;
+    --navy2: #151B3B;
+    --navy3: #1E2756;
+    --gold: #F5A623;
+    --gold2: #FFD166;
+    --white: #FFFFFF;
+    --gray: #8892B0;
+    --light: #CCD6F6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND STARS */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(245,166,35,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 60%, rgba(245,166,35,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 70%, rgba(245,166,35,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 35% 15%, rgba(255,255,255,0.15) 0%, transparent 100%),
+      radial-gradient(2px 2px at 65% 85%, rgba(245,166,35,0.15) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: rgba(10,15,44,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,166,35,0.15);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+
+  .logo span { color: var(--gold); }
+
+  .nav-btn {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover { background: var(--gold2); transform: scale(1.05); }
+
+  /* PAGES */
+  .page { display: none; min-height: 100vh; padding-top: 70px; position: relative; z-index: 1; }
+  .page.active { display: block; }
+
+  /* HOME PAGE */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    text-align: center;
+    padding: 40px 24px;
+  }
+
+  .hero-badge {
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeInDown 0.8s ease;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 8vw, 72px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+
+  .hero h1 .gold { color: var(--gold); }
+
+  .hero p {
+    color: var(--gray);
+    font-size: 15px;
+    max-width: 360px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    animation: fadeInUp 0.8s ease 0.4s both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease 0.6s both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--navy);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    transition: all 0.3s;
+    box-shadow: 0 8px 30px rgba(245,166,35,0.3);
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(245,166,35,0.4); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* FEATURES */
+  .features {
+    padding: 60px 24px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .section-title span { color: var(--gold); }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .feature-card {
+    background: var(--navy2);
+    border: 1px solid rgba(245,166,35,0.1);
+    border-radius: 16px;
+    padding: 20px 16px;
+    transition: all 0.3s;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(245,166,35,0.3);
+    transform: translateY(-4px);
+  }
+
+  .feature-icon { font-size: 28px; margin-bottom: 10px; }
+
+  .feature-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--white);
+  }
+
+  .feature-card p { font-size: 11px; color: var(--gray); line-height: 1.5; }
+
+  /* CHAT PAGE */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 70px);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .chat-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(245,166,35,0.1);
+    background: var(--navy2);
+  }
+
+  .chat-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .subject-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.2);
+    color: var(--gold);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .pill.active, .pill:hover {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: rgba(245,166,35,0.3); border-radius: 2px; }
+
+  .message {
+    display: flex;
+    gap: 10px;
+    animation: fadeInUp 0.3s ease;
+  }
+
+  .message.user { flex-direction: row-reverse; }
+
+  .msg-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .msg-avatar.ai { background: linear-gradient(135deg, var(--gold), var(--gold2)); }
+  .msg-avatar.user-av { background: var(--navy3); border: 1px solid rgba(245,166,35,0.3); }
+
+  .msg-bubble {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .message.ai .msg-bubble {
+    background: var(--navy2);
+    border: 1px solid rgba(245,166,35,0.1);
+    border-top-left-radius: 4px;
+    color: var(--light);
+  }
+
+  .message.user .msg-bubble {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--navy);
+    font-weight: 600;
+    border-top-right-radius: 4px;
+  }
+
+  .typing-indicator {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 12px 16px;
+  }
+
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: typing 1.2s infinite;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typing {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  .chat-input-area {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(245,166,35,0.1);
+    background: var(--navy2);
+  }
+
+  .lang-select {
+    background: var(--navy3);
+    border: 1px solid rgba(245,166,35,0.2);
+    color: var(--gold);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    width: 100%;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .chat-input {
+    flex: 1;
+    background: var(--navy3);
+    border: 1px solid rgba(245,166,35,0.2);
+    color: var(--white);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    resize: none;
+    min-height: 46px;
+    max-height: 120px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .chat-input:focus { border-color: var(--gold); }
+  .chat-input::placeholder { color: var(--gray); }
+
+  .send-btn {
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .send-btn:hover { transform: scale(1.05); }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* CREDITS PAGE */
+  .credits-page {
+    padding: 30px 24px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .credits-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .credits-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .credit-balance {
+    background: linear-gradient(135deg, var(--navy2), var(--navy3));
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .credit-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .credit-label { color: var(--gray); font-size: 13px; margin-top: 4px; }
+
+  .survey-card {
+    background: var(--navy2);
+    border: 1px solid rgba(245,166,35,0.15);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .survey-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .survey-card p { color: var(--gray); font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
+
+  .survey-reward {
+    background: rgba(245,166,35,0.1);
+    color: var(--gold);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .survey-questions { display: none; }
+  .survey-questions.open { display: block; }
+
+  .survey-q {
+    margin-bottom: 14px;
+  }
+
+  .survey-q p { color: var(--light); font-size: 13px; margin-bottom: 8px; }
+
+  .survey-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .survey-option {
+    background: var(--navy3);
+    border: 1px solid rgba(245,166,35,0.1);
+    color: var(--white);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .survey-option:hover, .survey-option.selected {
+    background: rgba(245,166,35,0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .submit-survey {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--navy);
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    margin-top: 12px;
+    transition: all 0.2s;
+  }
+
+  .submit-survey:hover { transform: scale(1.02); }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,15,44,0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(245,166,35,0.15);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 14px;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 4px 16px;
+  }
+
+  .nav-item .nav-icon { font-size: 22px; }
+  .nav-item .nav-label { font-size: 10px; color: var(--gray); }
+  .nav-item.active .nav-label { color: var(--gold); }
+  .nav-item.active .nav-icon { filter: drop-shadow(0 0 4px rgba(245,166,35,0.6)); }
+
+  /* API KEY SETUP */
+  .setup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,15,44,0.97);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .setup-box {
+    background: var(--navy2);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 20px;
+    padding: 30px 24px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .setup-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: var(--gold);
+  }
+
+  .setup-box p { color: var(--gray); font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
+
+  .setup-input {
+    width: 100%;
+    background: var(--navy3);
+    border: 1px solid rgba(245,166,35,0.2);
+    color: var(--white);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: monospace;
+    outline: none;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .setup-input:focus { border-color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* PADDING FOR BOTTOM NAV */
+  .page { padding-bottom: 70px; }
+
+  /* WELCOME MESSAGE */
+  .welcome-msg {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--gray);
+  }
+
+  .welcome-msg .big-emoji { font-size: 48px; margin-bottom: 12px; }
+  .welcome-msg h3 { color: var(--white); font-size: 16px; margin-bottom: 8px; }
+  .welcome-msg p { font-size: 13px; line-height: 1.6; }
+
+  .quick-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .quick-q {
+    background: var(--navy2);
+    border: 1px solid rgba(245,166,35,0.15);
+    color: var(--light);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .quick-q:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* VOICE BTN */
+  .voice-btn {
+    width: 46px;
+    height: 46px;
+    background: var(--navy3);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .voice-btn:hover { border-color: var(--gold); }
+  .voice-btn.listening { border-color: #ff4444; background: rgba(255,68,68,0.1); animation: pulse 1s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,68,68,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(255,68,68,0); }
+  }
+
+  .msg-time {
+    font-size: 10px;
+    color: var(--gray);
+    margin-top: 4px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .message.user .msg-time { text-align: right; }
+
+  /* SUCCESS TOAST */
+  .toast {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--navy);
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 300;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- API KEY SETUP -->
+<div class="setup-overlay" id="setupOverlay">
+  <div class="setup-box">
+    <div style="font-size:48px;margin-bottom:12px">🎓</div>
+    <h2>विद्या AI</h2>
+    <p>शुरू करने के लिए अपनी <strong style="color:var(--gold)">Gemini API Key</strong> डालें।<br>यह सिर्फ आपके device पर save होगी।</p>
+    <input type="password" class="setup-input" id="apiKeyInput" placeholder="AIza... (यहाँ API key paste करें)">
+    <p style="font-size:11px;color:var(--gray);margin-bottom:16px">
+      🔗 Key पाएं: <strong style="color:var(--gold)">aistudio.google.com</strong> → Get API Key
+    </p>
+    <button class="btn-primary" onclick="saveApiKey()" style="width:100%">शुरू करें →</button>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">विद्या<span>AI</span></div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="font-size:12px;color:var(--gold);font-family:'Space Mono',monospace" id="creditDisplay">⚡ 0 credits</span>
+    <button class="nav-btn" onclick="showPage('credits')">Credits</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-badge">🇮🇳 India का AI Teacher</div>
+    <h1>आपका <span class="gold">स्मार्ट</span><br>शिक्षक यहाँ है</h1>
+    <p>JEE, NEET, UPSC, Board exams — किसी भी subject में, किसी भी भाषा में, step-by-step समझाएं।</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('chat')">पढ़ाई शुरू करें →</button>
+      <button class="btn-secondary" onclick="showPage('credits')">Credits पाएं ⚡</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="section-title">क्यों <span>विद्या AI</span>?</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🗣️</div>
+        <h3>हर भाषा</h3>
+        <p>Hindi, English, Punjabi, Sanskrit — किसी में भी पूछें</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>हर Exam</h3>
+        <p>JEE, NEET, UPSC, CBSE, UP Board सब cover</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Step-by-Step</h3>
+        <p>जब तक समझ न आए, तब तक समझाएं</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎤</div>
+        <h3>Voice Support</h3>
+        <p>बोलकर सवाल पूछें, जवाब सुनें</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Previous Year</h3>
+        <p>PYQ analyze करें, predict करें</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Free Credits</h3>
+        <p>Survey से credits पाएं, पढ़ाई करें</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT PAGE -->
+<div class="page" id="page-chat">
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>🎓 विद्या से पूछें</h2>
+      <div class="subject-pills" id="subjectPills">
+        <span class="pill active" onclick="selectSubject(this,'General')">General</span>
+        <span class="pill" onclick="selectSubject(this,'Maths')">Maths</span>
+        <span class="pill" onclick="selectSubject(this,'Science')">Science</span>
+        <span class="pill" onclick="selectSubject(this,'JEE')">JEE</span>
+        <span class="pill" onclick="selectSubject(this,'NEET')">NEET</span>
+        <span class="pill" onclick="selectSubject(this,'UPSC')">UPSC</span>
+        <span class="pill" onclick="selectSubject(this,'History')">History</span>
+        <span class="pill" onclick="selectSubject(this,'English')">English</span>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="welcome-msg">
+        <div class="big-emoji">🙏</div>
+        <h3>नमस्ते! मैं विद्या हूं</h3>
+        <p>आपका AI शिक्षक। कोई भी सवाल पूछें — मैं step-by-step समझाऊंगा।</p>
+        <div class="quick-questions">
+          <button class="quick-q" onclick="sendQuickQ(this)">📐 Pythagoras theorem क्या है?</button>
+          <button class="quick-q" onclick="sendQuickQ(this)">⚗️ Photosynthesis कैसे होता है?</button>
+          <button class="quick-q" onclick="sendQuickQ(this)">🏛️ भारत का संविधान कब बना?</button>
+          <button class="quick-q" onclick="sendQuickQ(this)">🔢 Quadratic equation solve करो: x²-5x+6=0</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <select class="lang-select" id="langSelect">
+        <option value="Hindi">🇮🇳 हिंदी में जवाब दें</option>
+        <option value="English">🇬🇧 English में जवाब दें</option>
+        <option value="Hinglish">🔀 Hinglish में जवाब दें</option>
+        <option value="Punjabi">🟠 ਪੰਜਾਬੀ ਵਿੱਚ ਜਵਾਬ ਦਿਓ</option>
+        <option value="Sanskrit">🕉️ संस्कृते उत्तरम् ददातु</option>
+      </select>
+      <div class="input-row">
+        <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice input">🎤</button>
+        <textarea class="chat-input" id="chatInput" placeholder="सवाल यहाँ लिखें..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CREDITS PAGE -->
+<div class="page" id="page-credits">
+  <div class="credits-page">
+    <div class="credits-header">
+      <h2>⚡ Credits</h2>
+      <p style="color:var(--gray);font-size:13px">Survey भरो, credits पाओ, पढ़ाई करो!</p>
+    </div>
+
+    <div class="credit-balance">
+      <div class="credit-number" id="creditCount">0</div>
+      <div class="credit-label">आपके Credits</div>
+    </div>
+
+    <!-- SURVEY 1 -->
+    <div class="survey-card">
+      <h3>📋 Survey 1 — आपकी पढ़ाई के बारे में</h3>
+      <div class="survey-reward">+50 Credits</div>
+      <p>5 minute का survey — अपनी पढ़ाई की आदतों के बारे में बताएं।</p>
+      <button class="btn-primary" onclick="openSurvey('survey1')" style="width:100%;margin-bottom:12px" id="surveyBtn1">Survey शुरू करें</button>
+      <div class="survey-questions" id="survey1">
+        <div class="survey-q">
+          <p>1. आप रोज़ कितने घंटे पढ़ते हैं?</p>
+          <div class="survey-options">
+            <button class="survey-option" onclick="selectOption(this)">1-2 घंटे</button>
+            <button class="survey-option" onclick="selectOption(this)">3-4 घंटे</button>
+            <button class="survey-option" onclick="selectOption(this)">5-6 घंटे</button>
+            <button class="survey-option" onclick="selectOption(this)">6+ घंटे</button>
+          </div>
+        </div>
+        <div class="survey-q">
+          <p>2. आप कौन सी exam की तैयारी कर रहे हैं?</p>
+          <div class="survey-options">
+            <button class="survey-option" onclick="selectOption(this)">JEE/NEET</button>
+            <button class="survey-option" onclick="selectOption(this)">UPSC/BPSC</button>
+            <button class="survey-option" onclick="selectOption(this)">Board Exam</button>
+            <button class="survey-option" onclick="selectOption(this)">कोई नहीं</button>
+          </div>
+        </div>
+        <div class="survey-q">
+          <p>3. AI से पढ़ाई करना कैसा लगता है?</p>
+          <div class="survey-options">
+            <button class="survey-option" onclick="selectOption(this)">बहुत अच्छा</button>
+            <button class="survey-option" onclick="selectOption(this)">ठीक है</button>
+            <button class="survey-option" onclick="selectOption(this)">समझ नहीं आता</button>
+            <button class="survey-option" onclick="selectOption(this)">पहली बार try कर रहा हूं</button>
+          </div>
+        </div>
+        <button class="submit-survey" onclick="submitSurvey('survey1', 50, 'surveyBtn1')">✅ Submit करें (+50 Credits)</button>
+      </div>
+    </div>
+
+    <!-- SURVEY 2 -->
+    <div class="survey-card">
+      <h3>📊 Survey 2 — Subject Preference</h3>
+      <div class="survey-reward">+30 Credits</div>
+      <p>आपके पसंदीदा और मुश्किल subjects के बारे में।</p>
+      <button class="btn-primary" onclick="openSurvey('survey2')" style="width:100%;margin-bottom:12px" id="surveyBtn2">Survey शुरू करें</button>
+      <div class="survey-questions" id="survey2">
+        <div class="survey-q">
+          <p>1. आपका सबसे पसंदीदा subject?</p>
+          <div class="survey-options">
+            <button class="survey-option" onclick="selectOption(this)">Mathematics</button>
+            <button class="survey-option" onclick="selectOption(this)">Science</button>
+            <button class="survey-option" onclick="selectOption(this)">History/GK</button>
+            <button class="survey-option" onclick="selectOption(this)">English</button>
+          </div>
+        </div>
+        <div class="survey-q">
+          <p>2. सबसे मुश्किल subject?</p>
+          <div class="survey-options">
+            <button class="survey-option" onclick="selectOption(this)">Mathematics</button>
+            <button class="survey-option" onclick="selectOption(this)">Chemistry</button>
+            <button class="survey-option" onclick="selectOption(this)">Physics</button>
+            <button class="survey-option" onclick="selectOption(this)">English Grammar</button>
+          </div>
+        </div>
+        <button class="submit-survey" onclick="submitSurvey('survey2', 30, 'surveyBtn2')">✅ Submit करें (+30 Credits)</button>
+      </div>
+    </div>
+
+    <p style="text-align:center;color:var(--gray);font-size:12px;margin-top:8px">और surveys जल्द आएंगे! 🚀</p>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item active" id="nav-home" onclick="showPage('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Home</span>
+  </div>
+  <div class="nav-item" id="nav-chat" onclick="showPage('chat')">
+    <span class="nav-icon">💬</span>
+    <span class="nav-label">Chat</span>
+  </div>
+  <div class="nav-item" id="nav-credits" onclick="showPage('credits')">
+    <span class="nav-icon">⚡</span>
+    <span class="nav-label">Credits</span>
+  </div>
+</div>
+
+<script>
+  // STATE
+  let apiKey = localStorage.getItem('vidya_api_key') || '';
+  let credits = parseInt(localStorage.getItem('vidya_credits') || '0');
+  let selectedSubject = 'General';
+  let chatHistory = [];
+  let isLoading = false;
+  let recognition = null;
+
+  // INIT
+  updateCreditDisplay();
+  if (apiKey) document.getElementById('setupOverlay').style.display = 'none';
+
+  function saveApiKey() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    if (!key || !key.startsWith('AIza')) {
+      showToast('❌ Valid API Key डालें (AIza... से शुरू होनी चाहिए)');
+      return;
+    }
+    apiKey = key;
+    localStorage.setItem('vidya_api_key', key);
+    document.getElementById('setupOverlay').style.display = 'none';
+    showToast('✅ विद्या AI तैयार है!');
+  }
+
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.getElementById('nav-' + page).classList.add('active');
+  }
+
+  function updateCreditDisplay() {
+    document.getElementById('creditDisplay').textContent = '⚡ ' + credits + ' credits';
+    document.getElementById('creditCount').textContent = credits;
+  }
+
+  function selectSubject(el, subject) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    selectedSubject = subject;
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function getTime() {
+    return new Date().toLocaleTimeString('hi-IN', {hour:'2-digit', minute:'2-digit'});
+  }
+
+  function addMessage(role, text) {
+    const container = document.getElementById('chatMessages');
+    const welcomeMsg = container.querySelector('.welcome-msg');
+    if (welcomeMsg) welcomeMsg.remove();
+
+    const div = document.createElement('div');
+    div.className = 'message ' + role;
+
+    const avatar = document.createElement('div');
+    avatar.className = 'msg-avatar ' + (role === 'ai' ? 'ai' : 'user-av');
+    avatar.textContent = role === 'ai' ? '🎓' : '👤';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.innerHTML = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    const time = document.createElement('div');
+    time.className = 'msg-time';
+    time.textContent = getTime();
+
+    const wrapper = document.createElement('div');
+    wrapper.appendChild(bubble);
+    wrapper.appendChild(time);
+
+    div.appendChild(avatar);
+    div.appendChild(wrapper);
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function showTyping() {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'message ai';
+    div.id = 'typingIndicator';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'msg-avatar ai';
+    avatar.textContent = '🎓';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+
+    div.appendChild(avatar);
+    div.appendChild(bubble);
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typingIndicator');
+    if (t) t.remove();
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text || isLoading) return;
+
+    if (!apiKey) {
+      document.getElementById('setupOverlay').style.display = 'flex';
+      return;
+    }
+
+    input.value = '';
+    input.style.height = 'auto';
+    addMessage('user', text);
+    isLoading = true;
+    document.getElementById('sendBtn').disabled = true;
+    showTyping();
+
+    const lang = document.getElementById('langSelect').value;
+    chatHistory.push({ role: 'user', content: text });
+
+    const systemPrompt = `तुम विद्या हो — एक expert Indian teacher AI। तुम ${lang} में जवाब देते हो।
 Subject focus: ${selectedSubject}
 Rules:
-- ■■■■■ step-by-step ■■■■■
-- Simple language use ■■■
-- Examples ■■
-- ■■■ math ■■ ■■ clearly steps ■■■■
-- Real teacher ■■ ■■■ ■■■ ■■■, AI ■■ ■■■ ■■■■
-- ■■■ student ■■■ ■ ■■ ■■ ■■■■■ ■■■■■ ■■ ■■■■■`;
- try {
- const messages = chatHistory.map(m =&gt; ({ role: m.role === 'ai' ? 'model' : 'user', parts: [{ text: m.content }] }));
- const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({
- system_instruction: { parts: [{ text: systemPrompt }] },
- contents: messages,
- generationConfig: { temperature: 0.7, maxOutputTokens: 1024 }
- })
- });
- const data = await res.json();
- if (data.error) {
- removeTyping();
- addMessage('ai', '■ Error: ' + (data.error.message || '■■■ ■■■ ■■■■ API key check ■■■■■'));
- } else {
- const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '■■■ ■■■■, ■■■■ ■■■■ ■■■■■';
- chatHistory.push({ role: 'ai', content: reply });
- removeTyping();
- addMessage('ai', reply);
- // Speak response
- if ('speechSynthesis' in window) {
- const utterance = new SpeechSynthesisUtterance(reply.substring(0, 200));
- utterance.lang = lang === 'Hindi' ? 'hi-IN' : 'en-IN';
- utterance.rate = 0.9;
- // Don't auto-speak, only if user wants
- }
- }
- } catch(e) {
- removeTyping();
- addMessage('ai', '■ Network error■ Internet connection check ■■■■■');
- }
- isLoading = false;
- document.getElementById('sendBtn').disabled = false;
- }
- function sendQuickQ(btn) {
- document.getElementById('chatInput').value = btn.textContent.substring(2);
- showPage('chat');
- setTimeout(() =&gt; sendMessage(), 100);
- }
- function handleKey(e) {
- if (e.key === 'Enter' &amp;&amp; !e.shiftKey) {
- e.preventDefault();
- sendMessage();
- }
- }
- function autoResize(el) {
- el.style.height = 'auto';
- el.style.height = Math.min(el.scrollHeight, 120) + 'px';
- }
- // VOICE INPUT
- function toggleVoice() {
- if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
- showToast('■ ■■■■ browser voice support ■■■■ ■■■■');
- return;
- }
- const btn = document.getElementById('voiceBtn');
- if (recognition &amp;&amp; recognition.listening) {
- recognition.stop();
- btn.classList.remove('listening');
- btn.textContent = '■';
- return;
- }
- const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
- recognition = new SR();
- recognition.lang = 'hi-IN';
- recognition.continuous = false;
- recognition.interimResults = false;
- recognition.onstart = () =&gt; {
- btn.classList.add('listening');
- btn.textContent = '■';
- showToast('■ ■■■■■...');
- };
- recognition.onresult = (e) =&gt; {
- const text = e.results[0][0].transcript;
- document.getElementById('chatInput').value = text;
- btn.classList.remove('listening');
- btn.textContent = '■';
- };
- recognition.onerror = () =&gt; {
- btn.classList.remove('listening');
- btn.textContent = '■';
- showToast('■ Voice recognize ■■■■ ■■■■ ■■■ try ■■■■■');
- };
- recognition.onend = () =&gt; {
- btn.classList.remove('listening');
- btn.textContent = '■';
- };
- recognition.start();
- }
- // SURVEY
- function openSurvey(id) {
- const el = document.getElementById(id);
- el.classList.toggle('open');
- }
- function selectOption(btn) {
- const group = btn.closest('.survey-options');
- group.querySelectorAll('.survey-option').forEach(b =&gt; b.classList.remove('selected'));
- btn.classList.add('selected');
- }
- function submitSurvey(surveyId, reward, btnId) {
- const survey = document.getElementById(surveyId);
- const questions = survey.querySelectorAll('.survey-q');
- let allAnswered = true;
- questions.forEach(q =&gt; {
- if (!q.querySelector('.survey-option.selected')) allAnswered = false;
- });
- if (!allAnswered) {
- showToast('■ ■■■ ■■■■■■ ■■ ■■■■ ■■■');
- return;
- }
- credits += reward;
- localStorage.setItem('vidya_credits', credits);
- updateCreditDisplay();
- survey.classList.remove('open');
- const btn = document.getElementById(btnId);
- btn.textContent = '■ ■■ ■■■!';
- btn.disabled = true;
- btn.style.opacity = '0.5';
- showToast('■ +' + reward + ' Credits ■■■■!');
- }
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+- हमेशा step-by-step समझाओ
+- Simple language use करो
+- Examples दो
+- अगर math है तो clearly steps लिखो
+- Real teacher की तरह बात करो, AI की तरह नहीं
+- अगर student समझ न आए तो दूसरे तरीके से समझाओ`;
+
+    try {
+      const messages = chatHistory.map(m => ({ role: m.role === 'ai' ? 'model' : 'user', parts: [{ text: m.content }] }));
+
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents: messages,
+          generationConfig: { temperature: 0.7, maxOutputTokens: 1024 }
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.error) {
+        removeTyping();
+        addMessage('ai', '❌ Error: ' + (data.error.message || 'कुछ गलत हुआ। API key check करें।'));
+      } else {
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'माफ करें, जवाब नहीं मिला।';
+        chatHistory.push({ role: 'ai', content: reply });
+        removeTyping();
+        addMessage('ai', reply);
+
+        // Speak response
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(reply.substring(0, 200));
+          utterance.lang = lang === 'Hindi' ? 'hi-IN' : 'en-IN';
+          utterance.rate = 0.9;
+          // Don't auto-speak, only if user wants
+        }
+      }
+    } catch(e) {
+      removeTyping();
+      addMessage('ai', '❌ Network error। Internet connection check करें।');
+    }
+
+    isLoading = false;
+    document.getElementById('sendBtn').disabled = false;
+  }
+
+  function sendQuickQ(btn) {
+    document.getElementById('chatInput').value = btn.textContent.substring(2);
+    showPage('chat');
+    setTimeout(() => sendMessage(), 100);
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+  }
+
+  // VOICE INPUT
+  function toggleVoice() {
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+      showToast('❌ आपका browser voice support नहीं करता');
+      return;
+    }
+
+    const btn = document.getElementById('voiceBtn');
+    if (recognition && recognition.listening) {
+      recognition.stop();
+      btn.classList.remove('listening');
+      btn.textContent = '🎤';
+      return;
+    }
+
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SR();
+    recognition.lang = 'hi-IN';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => {
+      btn.classList.add('listening');
+      btn.textContent = '🔴';
+      showToast('🎤 बोलें...');
+    };
+
+    recognition.onresult = (e) => {
+      const text = e.results[0][0].transcript;
+      document.getElementById('chatInput').value = text;
+      btn.classList.remove('listening');
+      btn.textContent = '🎤';
+    };
+
+    recognition.onerror = () => {
+      btn.classList.remove('listening');
+      btn.textContent = '🎤';
+      showToast('❌ Voice recognize नहीं हुआ। फिर try करें।');
+    };
+
+    recognition.onend = () => {
+      btn.classList.remove('listening');
+      btn.textContent = '🎤';
+    };
+
+    recognition.start();
+  }
+
+  // SURVEY
+  function openSurvey(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+
+  function selectOption(btn) {
+    const group = btn.closest('.survey-options');
+    group.querySelectorAll('.survey-option').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  function submitSurvey(surveyId, reward, btnId) {
+    const survey = document.getElementById(surveyId);
+    const questions = survey.querySelectorAll('.survey-q');
+    let allAnswered = true;
+
+    questions.forEach(q => {
+      if (!q.querySelector('.survey-option.selected')) allAnswered = false;
+    });
+
+    if (!allAnswered) {
+      showToast('❌ सभी सवालों के जवाब दें');
+      return;
+    }
+
+    credits += reward;
+    localStorage.setItem('vidya_credits', credits);
+    updateCreditDisplay();
+
+    survey.classList.remove('open');
+    const btn = document.getElementById(btnId);
+    btn.textContent = '✅ हो गया!';
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+
+    showToast('🎉 +' + reward + ' Credits मिले!');
+  }
+</script>
+</body>
+</html>
